@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q and A</title>
+    <link rel="stylesheet" href="{{url_for('static' , filename='mainPage.css')}}">
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="section-title padd-15 " style="margin-top: 10px;">Generated Questions</h2>
+        <div class="row">
+            <div class="answer-box padd-15">
+                <div class="rounded" id="q-and-a">
+                    {% for block in p_questions.split('## QUES')[1:] %}
+                    {% set parts = block.strip().split('Answer:') %}
+                    {% if parts | length == 2 %}
+                    <div class="q-and-a">
+                        <div class="question">
+                            {{ parts[0].replace('Question:', '') | trim }}
+                        </div>
+                        <div class="correct-answer">
+                            Correct Answer: {{ parts[1] | trim }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <a href="/download/{{ txt_filename }}" class="btn btn-default">Download as TXT</a>
+                    <a href="/download/{{ pdf_filename }}" class="btn btn-default">Download as PDF</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Js-->
+    <script src="{{url_for('static', filename='mainPage.js')}}"></script>
+</body>
+
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet">
+
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="{{url_for('static' , filename='mainPage.css')}}">
+
+    <!--=============== jquery ===============-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <title>Make My Page</title>
+
+
+</head>
+
+<body>
+    <!--Header part-->
+    <header class="header" id="header">
+        <nav class="nav container padd-15">
+            <a href="#" class="nav-logo">
+                <h2>MAKE MY PAPER</h2>
+            </a>
+
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link active-link">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#generator" class="nav-link">Paper Generator</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+
+                <div class="nav-close" id="nav-close">
+                    <i class="lni lni-xmark"></i>
+                </div>
+            </div>
+
+            <div class="nav-btns">
+                <i class="lni lni-colour-palette-3 change-theme" id="theme-button"></i>
+
+                <div class="nav-toggle" id="nav-toggle">
+                    <i class="lni lni-menu-hamburger-1"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--Main-->
+    <main class="main-content">
+        <!--Home Section-->
+
+        <section class="home" id="home">
+            <div class="container">
+                <div class="intro">
+                    <h1>MAKE MY PAPER</h1>
+                    <h3>Teachers solves student's problems, while Make My Paper solves teacher's problems!</h3>
+                    <div>
+                        <a href="#generator" class="btn btn-default">CLICK HERE TO GENERATE</a>
+                    </div>
+
+                    <div class="scroll-down">
+                        <a href="#generator" class="mouse-wrapper">
+                            <span>Scroll Down</span>
+                            <span class="mouse">
+                                <span class="wheel"></span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Generator Section-->
+        <section class="generator section" id="generator">
+            <div class="container">
+                <h2 class="section-title padd-15" style="margin-top: 60px;">Paper Generator</h2>
+                <div class="row">
+                    <div class="generator-box padd-15">
+                        <div class="rounded">
+                            <div class="row">
+                                <form action="/generate" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="file">
+                                            <h3>Upload your document (PDF, TXT):</h3>
+                                        </label>
+                                        <input type="file" name="file" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="prompt">
+                                            <h3>Enter Prompt:</h3>
+                                        </label>
+                                        <input type="text" name="prompt" placeholder="write the prompt" value="NULL">
+                                    </div>
+
+                                    <h2 style="text-align: center;">-----------or-------------</h2>
+
+                                    <div class="form-group">
+                                        <label for="paper_type">
+                                            <h3>Select paper type?</h3>
+                                        </label>
+                                        <select name="paper_type" class="paper_type">
+                                            <option value="" selected>-Select-</option>
+                                            <option value="Subjective">Subjective</option>
+                                            <option value="Objective">Objective</option>
+                                            <option value="true-false">True-False</option>
+                                            <option value="fill-in-blanks">Fill-in-Blanks</option>
+                                        </select>
+                                    </div>
+
+
+                                    <!--for objective paper-->
+                                    <div class="hidden" id="Objective">
+                                        <div class="form-group">
+                                            <label for="difficulty">
+                                                <h3>Select difficulty type?</h3>
+                                            </label>
+                                            <select name="difficulty" class="difficulty">
+                                                <option value="" selected>-Select-</option>
+                                                <option value="Easy">Easy</option>
+                                                <option value="Medium">Medium</option>
+                                                <option value="Hard">Hard</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="num_questions">
+                                                <h3>How many MCQs do you want?</h3>
+                                            </label>
+                                            <input type="number" name="num_questions" min="0" value="0" required>
+                                        </div>
+                                    </div>
+
+                                    <!--for True and False paper-->
+                                    <div class="hidden" id="true-false">
+                                        <div class="form-group">
+                                            <label for="difficulty-true-false">
+                                                <h3>Select difficulty type?</h3>
+                                            </label>
+                                            <select name="difficulty-true-false" class="difficulty-true-false">
+                                                <option value="" selected>-Select-</option>
+                                                <option value="Easy">Easy</option>
+                                                <option value="Medium">Medium</option>
+                                                <option value="Hard">Hard</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="num_questions-true-false">
+                                                <h3>How many True and False Questions do you want?</h3>
+                                            </label>
+                                            <input type="number" name="num_questions-true-false" min="0" value="0" required>
+                                        </div>
+                                    </div>
+
+                                    <!--for Fill in the Blanks paper-->
+                                    <div class="hidden" id="fill-in-blanks">
+                                        <div class="form-group">
+                                            <label for="difficulty-fill-in-blanks">
+                                                <h3>Select difficulty type?</h3>
+                                            </label>
+                                            <select name="difficulty-fill-in-blanks" class="difficulty-fill-in-blanks">
+                                                <option value="" selected>-Select-</option>
+                                                <option value="Easy">Easy</option>
+                                                <option value="Medium">Medium</option>
+                                                <option value="Hard">Hard</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="num_questions-fill-in-blanks">
+                                                <h3>How many Fill in the Blanks Questions do you want?</h3>
+                                            </label>
+                                            <input type="number" name="num_questions-fill-in-blanks" min="0" value="0" required>
+                                        </div>
+                                    </div>
+
+                                    <!--for subjective paper-->
+                                    <div class="hidden" id="Subjective">
+                                        <div class="form-group">
+                                            <label for="difficulty-sub">
+                                                <h3>Select difficulty type?</h3>
+                                            </label>
+                                            <select name="difficulty-sub" class="difficulty-sub">
+                                                <option value="" selected>-Select-</option>
+                                                <option value="Easy">Easy</option>
+                                                <option value="Medium">Medium</option>
+                                                <option value="Hard">Hard</option>
+                                            </select>
+                                        </div>
+
+                                        <!--short questions-->
+                                        <div class="form-group">
+                                            <label for="short_questions">
+                                                <h3>How many Short answer questions do you
+                                                    want?</h3>
+                                            </label>
+                                            <input type="number" name="short_questions" min="0" value="0" required>
+                                        </div>
+
+                                        <!--intermediate question-->
+                                        <div class="form-group">
+                                            <label for="inter_questions">
+                                                <h3>How many Intermediate answer questions do you
+                                                    want?</h3>
+                                            </label>
+                                            <input type="number" name="inter_questions" min="0" value="0" required>
+                                        </div>
+
+                                        <!--hard question-->
+                                        <div class="form-group">
+                                            <label for="long_questions">
+                                                <h3>How many Long answer questions do you
+                                                    want?</h3>
+                                            </label>
+                                            <input type="number" name="long_questions" min="0" value="0" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-default" id="genbtn">GENERATE PAPER</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--About Section-->
+
+        <section class="about section" id="about">
+            <div class="container">
+                <h2 class="section-title padd-15" style="position: relative;top: 5px;">About Me</h2>
+                <div class="row">
+                    <div class="about-img padd-15">
+                        <img src="{{url_for('static' , filename='photo.jpg')}}" alt="">
+                    </div>
+                    <div class="about-content padd-15">
+                        <div class="rounded">
+                            <div class="row">
+                                <div class="about-text padd-15">
+                                    <p>I am Rishabh Anand, GenAI Engineer from Delhi,India.
+                                        I have a rich experience in APIs, LLMs, neural networks,
+                                        and also I am good at python and machine learning.
+                                    </p>
+                                    <div>
+                                        <a href="#" class="btn btn-default">Download CV</a>
+                                    </div>
+                                </div>
+                                <div class="skills padd-15">
+                                    <div class="row">
+                                        <div class="skill-item">
+                                            <h4>Machine Learning Concepts</h4>
+                                            <div class="progress">
+                                                <div class="progress-in "
+                                                    style="width: 95%;background: rgb(255,209,92);"></div>
+                                                <div class="skill-percent">95%</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="skill-item">
+                                            <h4>Deep Learning Concepts</h4>
+                                            <div class="progress">
+                                                <div class="progress-in" style="width: 80%;background: rgb(255,70,96);">
+                                                </div>
+                                                <div class="skill-percent">80%</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="skill-item">
+                                            <h4>Generative AI Concepts</h4>
+                                            <div class="progress">
+                                                <div class="progress-in"
+                                                    style="width: 60%;background: rgb(108,108,229);"></div>
+                                                <div class="skill-percent">60%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Contact Us Section-->
+
+        <section class="contact section" id="contact">
+            <div class="container">
+                <h2 class="section-title padd-15">Contact Us</h2>
+                <div class="row">
+                    <div class="contact-box padd-15">
+                        <div class="contact-data">
+                            <div class="contact-information">
+                                <h3 class="contact-subtitle">Call us for instant support</h3>
+                                <span class="contact-description">
+                                    <i class="lni lni-telephone-1 contact-icon"></i>+91 9625782551
+                                </span>
+                            </div>
+
+                            <div class="contact-information">
+                                <h3 class="contact-subtitle">Write us by mail</h3>
+                                <span class="contact-description">
+                                    <i class="lni lni-user-4 contact-icon"></i>rishabh0325@gmail.com
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form action="" class="contact-form padd-15">
+                        <div class="contact-inputs">
+                            <div class="contact-content">
+                                <input type="email" class="contact-input">
+                                <label for="" class="contact-label">Email</label>
+                                <span></span>
+                            </div>
+
+                            <div class="contact-content">
+                                <input type="text" class="contact-input">
+                                <label for="" class="contact-label">Subject</label>
+                                <span></span>
+                            </div>
+
+                            <div class="contact-content contact-area">
+                                <textarea name="" id="" cols="30" rows="10" class="contact-input"></textarea>
+                                <label for="" class="contact-label">Message</label>
+                                <span></span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-default">Send Message</a>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!--Footer-->
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-text padd-15">
+                    <p>&copy;MakeMyPaper | All Rights Reserved</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!--Theme Customization-->
+
+    <div class="customize-theme">
+        <div class="card">
+            <h2>Customize your view</h2>
+            <p>Manage your font size, color, and background</p>
+
+            <div class="font-size">
+                <h3>Font Size</h3>
+                <div>
+                    <h6>Aa</h6>
+                    <div class="choose-size">
+                        <span class="font-size-1"></span>
+                        <span class="font-size-2"></span>
+                        <span class="font-size-3 active"></span>
+                        <span class="font-size-4"></span>
+                    </div>
+                    <h3>Aa</h3>
+                </div>
+            </div>
+
+            <div class="color">
+                <h3>Color</h3>
+                <div class="choose-color">
+                    <span class="color-1"></span>
+                    <span class="color-2"></span>
+                    <span class="color-3 active"></span>
+                    <span class="color-4"></span>
+                    <span class="color-5"></span>
+                </div>
+            </div>
+
+            <div class="background">
+                <h3>Background</h3>
+                <div class="choose-bg">
+                    <div class="bg-1 active">
+                        <span></span>
+                        <h5 for="bg-1">Light</h5>
+                    </div>
+                    <div class="bg-2">
+                        <span></span>
+                        <h5 for="bg-2">Dim</h5>
+                    </div>
+                    <div class="bg-3">
+                        <span></span>
+                        <h5 for="bg-3">Dark</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Js-->
+    <script src="{{url_for('static', filename='mainPage.js')}}"></script>
+
+</body>
+
+</html>

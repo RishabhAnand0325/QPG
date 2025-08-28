@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ</title>
+    <link rel="stylesheet" href="{{url_for('static' , filename='mainPage.css')}}">
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="section-title padd-15 " style="margin-top: 10px;">Generated Questions</h2>
+        <div class="row">
+            <div class="answer-box padd-15">
+                <div class="rounded" id="mcq">
+                    <!-- {% for mcq in mcqs.split("## MCQ") %}
+                        {% if mcq.strip() %}
+                        <div class="mcq">
+                            <div class="question">{{ mcq.split('A)')[0].strip() }}</div>
+                            <div class="options">
+                                <div class="option">A) {{ mcq.split('A)')[1].split('B)')[0].strip() }}</div>
+                                <div class="option">B) {{ mcq.split('B)')[1].split('C)')[0].strip() }}</div>
+                                <div class="option">C) {{ mcq.split('C)')[1].split('D)')[0].strip() }}</div>
+                                <div class="option">D) {{ mcq.split('D)')[1].split('Correct Answer:')[0].strip() }}</div>
+                            </div>
+                            <div class="correct-answer">
+                                Correct Answer: {{ mcq.split('Correct Answer:')[1].strip() }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %} -->
+
+                    {% for mcq in mcqs.split("## MCQ") %}
+                    {% if mcq.strip() and 'Question:' in mcq and 'Correct Answer:' in mcq %}
+                    {% set question_text = mcq.split('Question:')[1].split('A)')[0].strip() %}
+                    {% set option_a = mcq.split('A)')[1].split('B)')[0].strip() %}
+                    {% set option_b = mcq.split('B)')[1].split('C)')[0].strip() %}
+                    {% set option_c = mcq.split('C)')[1].split('D)')[0].strip() %}
+                    {% set option_d = mcq.split('D)')[1].split('Correct Answer:')[0].strip() %}
+                    {% set correct_answer = mcq.split('Correct Answer:')[1].strip() %}
+                    <div class="mcq">
+                        <div class="question">{{ question_text }}</div>
+                        <div class="options">
+                            <div class="option">A) {{ option_a }}</div>
+                            <div class="option">B) {{ option_b }}</div>
+                            <div class="option">C) {{ option_c }}</div>
+                            <div class="option">D) {{ option_d }}</div>
+                        </div>
+                        <div class="correct-answer">
+                            Correct Answer: {{ correct_answer }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+
+                    <a href="/download/{{ txt_filename }}" class="btn btn-default">Download as TXT</a>
+                    <a href="/dowload/{{ pdf_filename }}" class="btn btn-default">Download as PDF</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Js-->
+    <script src="{{url_for('static', filename='mainPage.js')}}"></script>
+</body>
+
+</html>
